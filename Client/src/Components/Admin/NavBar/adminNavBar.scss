@@ -1,0 +1,42 @@
+@import '../../../style.scss';
+
+.adminNavBar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    height: 50px;
+    border-bottom: 1px solid lightgrey;
+    position: sticky;
+    top: 0;
+    background-color: blue;
+    color:red;
+    z-index: 9;
+}
+.left{
+    color:white;
+    span{
+        font-weight: bold;
+        font-size: 20px;
+        // color:linear-gradient(rgba(67,67,67,0.5),rgba(0,0,0,1));
+        color:yellow;
+    }
+}
+.right{
+    .admin{
+    display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+    img{
+        width: 30px;
+        height: 30px;
+        border-radius: 50px;
+        object-fit: cover;
+
+    }
+    span{
+
+    }
+}
+}

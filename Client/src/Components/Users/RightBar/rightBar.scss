@@ -1,0 +1,84 @@
+@import "../../../style.scss";
+
+    
+.rightBar{
+    @include themify($themes){
+    flex:3;
+    position: sticky;
+    top: 70px;
+    height: calc(100vh - 70px);
+    overflow: scroll;
+    background-color: themed(bgSoft);
+    @include mobile{
+        display: none;
+    }
+    @include tablet{
+        display: none;
+    }
+    &::-webkit-scrollbar{
+        display: none;
+    }
+    .container{
+        padding: 20px;
+    }
+    .item{
+        -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.09);
+-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.09);
+box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.09);
+padding: 20px;
+margin-bottom: 20px;
+background-color: themed(bg);
+        span{
+            color:gray;
+            padding: 1px;
+        }
+        .user{
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0px;
+            .userInfo{
+                display:flex;
+            align-items: center;
+            gap: 20px;
+
+            img{
+                width:40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+            span{
+                font-weight: 500;
+                color: themed(textColor);
+            }
+
+            }
+            .buttons{
+                display:flex;
+            align-items: center;
+            gap: 10px;
+
+            button{
+                border:none;
+                padding:5px;
+                
+                cursor: pointer;
+                &:first-child{
+                    background-color: white;
+                    color:black;
+                    border-style: solid;
+                    border-color:#434343;
+                }
+                &:last-child{
+                    background-color: #434343;
+                    color:white;
+                }
+            }
+
+            }
+        }
+    }
+   
+}
+}

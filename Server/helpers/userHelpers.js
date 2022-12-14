@@ -1,0 +1,92 @@
+const db=require('../config/database');
+const bcrypt=require('bcrypt');
+const Users = require('../model/usersModel').usermodel;
+const Posts =require('../model/usersModel').postmodel;
+const Comments = require('../model/usersModel').commentmodel;
+const jwt = require('jsonwebtoken');
+const { response } = require('express');
+
+
+
+module.exports={
+    doSignup:(user)=>{
+        return new Promise(async(resolve,reject)=>{
+            const {email,password}=user
+            const emailVerify= await Users.find({email:email}) 
+            if(emailVerify.length>=1){
+                resolve({status:false})
+            }else{
+            user.save().then((response)=>{
+                resolve(response)
+            })
+        }
+        })
+    },
+
+    doLogin:(user)=>{
+        return new Promise (async(resolve,reject)=>{
+            const {email,password}=user
+            const emailVerify= await Users.find({email:email})    
+            console.log(emailVerify,"emailverify");
+            if(emailVerify.length<1){
+                response.status="email";
+                resolve(response)
+            }
+            else if(emailVerify){               
+                const passwordVerify = await bcrypt.compare(password,emailVerify[0].password)
+                if(passwordVerify){
+                    const id= emailVerify._id 
+                    const token = jwt.sign({id},"9611",{expiresIn:"10"})                    
+                    resolve({token:token,status:true,user:emailVerify})
+                }else{
+                    resolve({status:false})
+                }
+            }
+        })
+    },
+
+    posts:(posts)=>{
+        const {post,img,userId}=posts;
+        const postukal= ({
+            post,img,userId
+        })
+        return new Promise(async(resolve,reject)=>{
+            await Posts(postukal).save().then((response)=>{
+            resolve(response)
+        })
+
+         })
+    },
+
+    getFeedPosts:()=>{
+        return new Promise((resolve,reject)=>{
+            Posts.find({}).then((response)=>{
+                resolve(response)
+            })
+        })
+
+    },
+
+    comments:(comments)=>{
+        const {comment,userId}=comments;
+        const commentukal= ({
+            comment,userId
+        })
+        return new Promise(async(resolve,reject)=>{
+            await Comments(commentukal).save().then((response)=>{
+            resolve(response)
+        })
+
+         })
+    },
+
+    getPostComments:()=>{
+        return new Promise((resolve,reject)=>{
+            Comments.find({}).then((response)=>{
+                resolve(response)
+            })
+        })
+
+    },
+
+}

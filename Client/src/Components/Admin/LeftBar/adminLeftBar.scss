@@ -1,0 +1,40 @@
+.adminLeftBar{
+    flex:2;
+    position: sticky;
+    top: 70px;
+    height: calc(100vh - 70px);
+    overflow: scroll;
+    background-color: pink;
+    color:aquamarine;
+    &::-webkit-scrollbar{
+        display: none;
+    }
+    .container{
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        .menu{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            .dashboard{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                img{}
+                span{
+                    color:blue;
+                }
+            }
+            .item{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                img{}
+                span{
+                    color:red;
+                }
+            }
+        }
+    }
+}
