@@ -1,0 +1,33 @@
+@import "../../../style.scss";
+
+.requests {
+    @include themify($themes) {
+      .userName{
+        display: flex;
+        align-items: center;
+        // justify-content: space-between;
+         gap: 10px;
+        margin: 10px 0px;
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+        p{
+          
+        }
+  
+        button{
+          border: none;
+          background-color:#434343;
+          color: white;
+          padding: 10px;
+          cursor: pointer;
+          border-radius: 3px;
+        }
+      }
+  
+    }
+  }

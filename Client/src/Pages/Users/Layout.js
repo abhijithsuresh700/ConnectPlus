@@ -11,7 +11,6 @@ function Layout() {
   const navigate=useNavigate()
 
   const {darkMode}=useContext(DarkModeContext);
-  console.log(darkMode)
 
   const queryClient = new QueryClient();
 

@@ -46,12 +46,15 @@ module.exports={
     },
 
     posts:(posts)=>{
-        const {post,img,userId}=posts;
+        // console.log(posts,"posts cjeck");
+        const {post,img,userId,userName}=posts;
         const postukal= ({
-            post,img,userId
+            post,img,userId,userName
         })
+        // console.log(postukal,"postukal");
         return new Promise(async(resolve,reject)=>{
             await Posts(postukal).save().then((response)=>{
+                // console.log(response,"check");
             resolve(response)
         })
 
@@ -68,9 +71,10 @@ module.exports={
     },
 
     comments:(comments)=>{
-        const {comment,userId}=comments;
+        console.log(comments,"comments");
+        const {comment,userId,postId}=comments;
         const commentukal= ({
-            comment,userId
+            comment,userId,postId
         })
         return new Promise(async(resolve,reject)=>{
             await Comments(commentukal).save().then((response)=>{

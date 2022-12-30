@@ -2,8 +2,7 @@
 
 .navbar{
     @include themify($themes){
-
-    
+ 
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -18,7 +17,9 @@
     .left{
         display: flex;
         align-items: center;
-        gap:30px;
+        gap:40px;
+        // background-color: red;
+        color:themed(logo);
         span{
             font-weight: bold;
             font-size: 20px;
@@ -35,7 +36,7 @@
             input{
                 border: none;
                 width:500px;
-                background-color: transparent;
+                 background-color: transparent;
                 color:themed(textColor);
 
                 @include mobile{
@@ -48,6 +49,7 @@
             }
 
         }
+       
     }
     .right{
         display: flex;
@@ -73,6 +75,16 @@
             }
         }
 
+    }
+    .searchedItems{
+        height:20px;
+        width:100px;
+
+        .searchedImage{
+height: 20px;
+width: 20px;
+border-radius: 50%;
+        }
     }
 }
 }

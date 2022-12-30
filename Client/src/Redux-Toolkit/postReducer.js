@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const getFeedPosts= createAsyncThunk('api/Posts',()=>{
 return axios.get('http://localhost:9000/getFeedPosts').then((response)=>{
-    console.log(response,"responseeeeeeeeeeeeeeeeeqqqqqqqqqqqqq");
+response.length=response.data.length
     return response.data
 })
 })

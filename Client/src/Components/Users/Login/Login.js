@@ -5,9 +5,13 @@ import AnimatedPage from '../../Animated Page/AnimatedPage'
 import "./login.scss"
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { useDispatch } from 'react-redux'
+import {login} from '../../../Redux-Toolkit/userSlice';
+
 
 
 function Login() {
+  const dispatch=useDispatch();
   const navigate=useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,30 +48,33 @@ function Login() {
        email,password
      })
      axios.post('http://localhost:9000/login',user).then((response)=>{
-      if(response.data.response.status==="email"){
-        Swal.fire("Email doesn't exists")
-      }
-      if(response.data.response.status===false){
-        Swal.fire("Password is incorrect")
-      }
-       if(response.data.response.status){
-          localStorage.setItem("token",response.data.response.token)
-          localStorage.setItem('id',response.data.response.user[0]._id)
-          localStorage.setItem('name',response.data.response.user[0].name)
-          localStorage.setItem('email',response.data.response.user[0].email);
-          localStorage.setItem('mobileNumber',response.data.response.user[0].mobileNumber);
-          localStorage.setItem('passsword',response.data.response.user[0].password);
-          localStorage.setItem('profilePic',response.data.response.user[0].profilePic);
-          localStorage.setItem('date',response.data.response.user[0].date);
-          // console.log(localStorage.token,"token");
-          // console.log(response.data.response.user[0].name);
-          // console.log(response.data.response.user[0].password);
-          // console.log(response.data.response.user[0].email);
-          // console.log(response.data.response.user[0].date);
-          // console.log(response.data.response.user[0].mobileNumber);
-          // console.log(response.data.response.user[0].profilePic);
+      // if(response.data.response.status==="email"){
+      //   Swal.fire("Email doesn't exists")
+      // }
+      // if(response.data.response.status===false){
+      //   Swal.fire("Password is incorrect")
+      // }
+       if(response.status=='201'){
+          localStorage.setItem("token",response.data.userdata)
+          localStorage.setItem('id',response.data.user._id)
+          localStorage.setItem('name',response.data.user.name)
+          localStorage.setItem('email',response.data.user.email);
+          localStorage.setItem('mobileNumber',response.data.user.mobileNumber);
+          localStorage.setItem('passsword',response.data.user.password);
+          localStorage.setItem('profilePic',response.data.user.profilePic);
+          localStorage.setItem('coverPic',response.data.user.coverPic);
+          localStorage.setItem('date',response.data.user.date);
+          localStorage.setItem('user',response.data.user);
+          localStorage.setItem('status',response.data.user.status);
+          localStorage.setItem('defaultP',"https://w7.pngwing.com/pngs/141/425/png-transparent-user-profile-computer-icons-avatar-profile-s-free-angle-rectangle-profile-cliparts-free.png");
+          localStorage.setItem('defaultC',"https://nirc.icai.org/wp-content/plugins/profilegrid-user-profiles-groups-and-communities/public/partials/images/default-cover.jpg")
           console.log(localStorage.id,"iddddd")
+          console.log(localStorage.profilePic,"profilepic");
+          console.log(localStorage.defaultP,"defaultP");
+          alert("nil")
+          
          navigate('/')
+         dispatch(login());
        }else{
           const invalid='Invalid Credentials'
          setFormErrors({invalid})

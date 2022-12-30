@@ -1,90 +1,84 @@
 import { useContext, useEffect, useState } from "react";
 import "./comments.scss";
-// import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import {getPostComments} from '../../../Redux-Toolkit/commentReducer';
-import {useDispatch, useSelector} from "react-redux"
+import { useSelector } from "react-redux";
+import { format } from "timeago.js";
 
 
-const Comments = () => {
-//   const { currentUser } = useContext(AuthContext);
+
+const Comments = (props) => {
+  const postId=props.id;
+  const user = useSelector((state) => state.user)
+
 
 const [comment,setComment]=useState('');
 
 
-const mutation = useMutation(
-  (newComment) => {
-    alert({newComment},"hello")
-    return axios.post("http://localhost:9000/comments", newComment);
-  },
-);
+const [newComment,setNewcomment]=useState([]);
+const [noOfComments,setNoOfComments]=useState('');
+
 
 
 
 const handleClick = async (e) => {
   e.preventDefault();
-  setComment('');
+ 
   let Id = localStorage.id;
-  alert(comment)
-   mutation.mutate({ comment, userId:Id });
+  let postId= props.id;
+
+ const newComment = {
+      userId: Id,
+      postId: postId,
+      comment: comment,
+    }
+    try {
+      await axios.post('http://localhost:9000/comments', newComment)
+      setComment('');
+    } catch (error) {
+      
+    }
+    axios.get('http://localhost:9000/getComment/' + postId).then((response) => {
+       setNewcomment(response.data)
+       setNoOfComments(response.data.length)
+  
+     
+  
+    })
+   
 };
 
+useEffect(() => {
+  let postId= props.id;
+  axios.get('http://localhost:9000/getComment/' + postId).then((response) => {
+     setNewcomment(response.data)
+     setNoOfComments(response.data.length)
 
-const use = useSelector((state)=>{
-  console.log(state,"Commentstateeeeeee");
-  // console.log(state.post.data.response,"ressssssssss");
-  // return state.post.data.response
-})
-console.log(use,"posts");
+   
 
-const dispatch=useDispatch()
-useEffect(()=>{
-  dispatch(getPostComments())
-  console.log(dispatch,"hello");
-},[dispatch])
-
-
-
-  //Temporary
-  const comments = [
-    {
-      id: 1,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam",
-      name: "John Doe",
-      userId: 1,
-      profilePicture:
-        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-      id: 2,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam",
-      name: "Jane Doe",
-      userId: 2,
-      profilePicture:
-        "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    },
-  ];
-
-  //const comments=use;
+  }).catch((err) => {
+    console.log(err);
+  })
+}, [comment])
 
 
 
   return (
     <div className="comments">
       <div className="write">
-        <img src="https://www.fragrantica.com/mdimg/dizajneri/o.1983.jpg" alt="" />
+        <img src={`http://localhost:9000/images/${user?.profilePicture}`} alt="" />
         <input type="text" placeholder="write a comment" onChange={(e) => setComment(e.target.value)} value={comment} />
-        <button onClick={handleClick}>Send</button>
+        <input type="hidden" value={comment}/>
+        <button disabled={!comment} onClick={handleClick}>Send</button>
       </div>
-      {comments.map((comment) => (
+      {newComment.map((comment) => (
         <div className="comment">
-          <img src={comment.profilePicture} alt="" />
+          <img src={`http://localhost:9000/images/${comment?.userId.profilePic}`} alt="" />
           <div className="info">
-            <span>{comment.name}</span>
-            <p>{comment.desc}</p>
+            <span>{comment.userId.name}</span>
+            <p>{comment.comment}</p>
           </div>
-          <span className="date">1 hour ago</span>
+          <span className="date">{format(comment.date)}</span>
         </div>
       ))}
     </div>

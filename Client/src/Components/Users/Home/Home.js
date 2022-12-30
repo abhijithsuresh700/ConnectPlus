@@ -13,7 +13,7 @@ function Home() {
       {/* <h1>Welcome to Home Page</h1>
       <button onClick={()=>navigate('/login')}>Login</button>
       <button onClick={()=>navigate('./profile')}>Profile</button> */}
-     <Stories/>
+     {/* <Stories/> */}
      <Share/>
      <Posts/>
     </div>

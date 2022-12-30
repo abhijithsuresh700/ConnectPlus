@@ -9,6 +9,7 @@
     overflow: scroll;
     background-color: themed(bg);
     color:themed(textColor);
+    cursor: pointer;
     @include mobile{
         display: none;
     }
@@ -41,7 +42,7 @@
             .item{
                 display: flex;
                 align-items: center;
-                gap: 10px;
+                gap: 20px;
                 
                 img{
                     width:30px;

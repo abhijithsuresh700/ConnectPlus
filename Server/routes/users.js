@@ -1,99 +1,64 @@
 var express = require('express');
 var router = express.Router();
-const userHelpers= require('../helpers/userHelpers');
-const adminHelpers= require('../helpers/adminHelpers');
-const User=require('../model/usersModel').usermodel
-const bcrypt=require('bcrypt');
-const { response } = require('express');
+const {postSignup,doLogin,posts,getFeedPosts,likePost,comments,getComment,
+  deletePost,editPost,reportPost,getConnectionSuggestions,connectionRequest,profileUpdate,getProfileDetails,
+  connectionRequestList,acceptConnection,connections,getUserData,getNotifications,searchUsers,
+  declineConnection}=require('../controller/usercontroller');
+const multer = require('multer');
+
+
+
+const storage = multer.diskStorage({
+  destination(req, file, callback) {
+    callback(null, './public/images');
+  },
+  filename(req, file, callback) {
+    callback(null, file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
+
+router.post('/post/upload', upload.single('file'), (req, res) => {
+  try {
+    console.log(req.file,'uploaded image')
+    res.json(req.file)
+  } catch (error) {
+    res.json(error)
+  }
+})
+
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/signup', async(req,res)=>{  
-  try{
-    const{name,email,mobileNumber,password}=req.body
-     const Password = await bcrypt.hash(password,10)   
-    const user = new User({
-      name:name,
-      email:email,
-      mobileNumber:mobileNumber,
-      password:Password
-  })
-    userHelpers.doSignup(user).then((response)=>{
-       res.json({response})          
-     })
-    } catch(error){
-      console.log(error);
-    }
-});
+router.post("/signup",postSignup);
+router.post('/login',doLogin);
 
-router.post('/login', async(req,res)=>{
-  try{    
-    userHelpers.doLogin(req.body).then((response)=>{
-       res.json({response})          
-     })
-    } catch(error){
-      console.log(error);
-    }
-});
+// router.post('/post/upload');
+router.post('/posts',posts);
+router.get('/getFeedPosts/:userId',getFeedPosts);
+router.put('/post/like/:postId/:userId', likePost);
+router.post('/comments',comments);
+router.get('/getComment/:id',getComment);
+router.post('/deletePost/:id',deletePost);
+router.post('/editPost/:id',editPost);
+router.post('/reportpost/:postId/:userId',reportPost);
+router.get('/getConnectionSuggestions/:id',getConnectionSuggestions);
+router.post('/connectionRequest/:id',connectionRequest);
+router.post('/profileUpdate',profileUpdate);
+router.get('/getProfileDetails/:id',getProfileDetails);
+router.get('/connectionRequestList/:id',connectionRequestList);
+router.post('/acceptConnection/:accepterId/:senderId', acceptConnection);
+router.get('/connections/:id',connections);
+router.get('/userData/:id',getUserData);
+router.get('/user/notification/:id',getNotifications);
+router.get('/user/search/:id',searchUsers); //searchUsers
+router.post('/declineConnection/:declinerId/:senderId',declineConnection);
 
-router.post('/upload', async(req,res)=>{
-  console.log(req.body,"check1");
-  // try{    
-  //   userHelpers.doLogin(req.body).then((response)=>{
-  //      res.json({response})          
-  //    })
-  //   } catch(error){
-  //     console.log(error);
-  //   }
-});
-
-router.post('/posts', async(req,res)=>{
-  try{    
-    userHelpers.posts(req.body).then((response)=>{
-       res.json({response})          
-     })
-    } catch(error){
-      console.log(error);
-    }
-});
-
-router.get('/getFeedPosts',async(req,res)=>{
-  try{
-    userHelpers.getFeedPosts().then((response)=>{
-      res.json({response})
-    })
-  }catch(error){
-    console.log(error)
-  }
-});
-
-router.post('/comments', async(req,res)=>{
-  try{    
-    userHelpers.comments(req.body).then((response)=>{
-       res.json({response})          
-     })
-    } catch(error){
-      console.log(error);
-    }
-});
-
-
-
-router.get('/getPostComments',async(req,res)=>{
-  try{
-    userHelpers.getPostComments().then((response)=>{
-      console.log(response,"commentssspppppppppppp");
-      res.json({response})
-    })
-  }catch(error){
-    console.log(error)
-  }
-});
-
-//getPostComments
+//getProfileDetails
 
 
 

@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: center;
     z-index: 999;
+  
 
     .wrapper {
       margin: auto;
@@ -27,6 +28,7 @@
       -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
       box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
       position: relative;
+      overflow-y: auto;
       
       @include mobile {
         width: 100%;
@@ -62,6 +64,9 @@
 
           .imgContainer {
             position: relative;
+            width: 100px;
+              height: 100px;
+              object-fit: cover;
             img {
               width: 100px;
               height: 100px;

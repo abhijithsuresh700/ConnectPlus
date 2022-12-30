@@ -47,7 +47,7 @@
           border-radius: 20px;
           background-color: themed("bg");
           color: themed("textColor");
-          padding: 50px;
+          padding: 60px;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -60,7 +60,7 @@
             margin-top: 100px;
           }
   
-          .left {
+          .leftt {
             flex: 1;
             display: flex;
             gap: 10px;
@@ -79,7 +79,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            padding: -10px;
+             margin-top: 50px;
+
+             .center-div{
+              display: flex;
+              justify-content: space-around;
+              gap: 20px;
+              align-items: center;
+             }
   
             span {
               font-size: 30px;

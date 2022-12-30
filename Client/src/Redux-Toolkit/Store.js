@@ -1,12 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import feedPost from './postReducer'
+import userReducer from './userSlice'
 
 
-console.log(feedPost,"feedpostttttttttttt");
+
 const store = configureStore({
   reducer: {
-    post:feedPost
+    post:feedPost,
+    user:userReducer
   },
+
 })
 
 export default store

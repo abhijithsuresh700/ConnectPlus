@@ -7,29 +7,29 @@ const Stories = () => {
         {
           id: 1,
           name: "John Doe",
-          img: "https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+          img: "https://images.unsplash.com/photo-1473442240418-452f03b7ae40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGVzdGluYXRpb258ZW58MHx8MHx8&w=1000&q=80",
         },
         {
           id: 2,
           name: "John Doe",
-          img: "https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+          img: "https://images.unsplash.com/photo-1473442240418-452f03b7ae40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGVzdGluYXRpb258ZW58MHx8MHx8&w=1000&q=80",
         },
         {
           id: 3,
           name: "John Doe",
-          img: "https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+          img: "https://images.unsplash.com/photo-1473442240418-452f03b7ae40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGVzdGluYXRpb258ZW58MHx8MHx8&w=1000&q=80",
         },
         {
           id: 4,
           name: "John Doe",
-          img: "https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+          img: "https://images.unsplash.com/photo-1473442240418-452f03b7ae40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGVzdGluYXRpb258ZW58MHx8MHx8&w=1000&q=80",
         },
       ];
   return (
     <div className='stories'>
     <div className='story'>
-            <img src="https://www.fragrantica.com/mdimg/dizajneri/o.1983.jpg"></img>
-            <span>{localStorage.username}</span>
+            <img src={localStorage.profilePic}></img>
+            <span>{localStorage.name}</span>
             <button>+</button>
 
         </div>

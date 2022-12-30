@@ -54,11 +54,12 @@ function Register() {
        name,email,mobileNumber,password
      })
      axios.post('http://localhost:9000/signup',user).then((response)=>{
-      console.log(response.data.response.status,"response")
-      if(response.data.response.status==false){
-        Swal.fire("Email already exists")
-      }
-       else{
+      // console.log(response.status,"new controller response");
+      // console.log(response.data.response.status,"response")
+      if(response){
+      //   Swal.fire("Email already exists")
+      // }
+      //  else{
         console.log("success");
          Swal.fire({
            position: 'top-end',

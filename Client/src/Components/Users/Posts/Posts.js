@@ -1,60 +1,37 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./posts.scss"
 import Post from "../Post/Post"
 import {useDispatch} from 'react-redux'
 import { getFeedPosts } from "../../../Redux-Toolkit/postReducer";
-import {useSelector} from "react-redux"
+import {useSelector} from "react-redux";
+import axios from 'axios';
+import userInstance from '../../../Axios/userAuth';
 
 function Posts() {
+   const user = useSelector((state) => state.user)
+   const [change,setChange] =useState('')
+   const [data,setData]=useState([]);
 
-  const databasePost = useSelector((state)=>{
-    console.log(state,"stateeeeeee");
-    console.log(state.post.data.response,"ressssssssss");
-    return state.post.data.response
-  })
-  console.log(databasePost,"posts");
+   console.log(user._id,"user id check of reducx");
 
-  const dispatch=useDispatch();
+  useEffect(() => {
+    console.log("check likeeeeeeeee");
+    userInstance.get(`/getFeedPosts/${user._id}`, {
+    }).then((response) => {
+       setData(response.data)
 
-  useEffect(()=>{
-    dispatch(getFeedPosts())
-    console.log(dispatch,"hello");
-  },[dispatch])
-
-    //TEMPORARY
-    // const posts = [
-    //   {
-    //     _id: 1,
-    //     name: "Abhijith Suresh",
-    //     userId: 1,
-    //     profilePic:
-    //       "https://www.fragrantica.com/mdimg/dizajneri/o.1983.jpg",
-    //     post: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    //     img: "https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    //   },
-    //   {
-    //     _id: 2,
-    //     name: "Abhijith Suresh",
-    //     userId: 2,
-    //     profilePic:
-    //       "https://www.fragrantica.com/mdimg/dizajneri/o.1983.jpg",
-    //     post: "Tenetur iste voluptates dolorem rem commodi voluptate pariatur, voluptatum, laboriosam consequatur enim nostrum cumque! Maiores a nam non adipisci minima modi tempore.",
-    //   },
-    // ];
-
-
-
- const posts=databasePost;
-
- console.log(posts,"last");
-
+    }).catch((err) => {
+      console.log(err);
+    })
+  }, [change])
 
 
   return (
     <div className='posts'>
-       {posts.map(post=>(
-      <Post post={post} key={post.id}/>
-    ))}
+       {
+        data?.map(post=>{     
+      return <Post post={post} setChange={setChange} key={post._id}/>}
+    )}
     </div>
   )
 
